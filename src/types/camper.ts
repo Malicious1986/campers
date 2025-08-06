@@ -1,3 +1,5 @@
+
+
 export interface Camper {
   AC: boolean;
   TV: boolean;

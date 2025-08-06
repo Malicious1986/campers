@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { CamperItem } from "../../views/camper-item/CamperItem";
 import { Container } from "../../components/Container";
+import Filters from "./templates/Filters";
 
 export const Catalog = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -29,8 +30,8 @@ export const Catalog = () => {
   return (
     <>
       {isLoading && <p>Loading...</p>}
-      <Container className="mx-auto my-12 grid grid-cols-[360px_1fr] max-w-[1440px]">
-        <div>Hello</div>
+      <Container className="mx-auto my-12 grid grid-cols-[360px_1fr] max-w-[1440px] gap-3">
+        <Filters />
         <div className="flex flex-col gap-6">
           {campers.length
             ? campers.map((camper) => (
