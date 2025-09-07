@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 
-import { Button } from "../../components/Button";
-import { Container } from "../../components/Container";
+import { Button } from "../../components/button/Button";
+import { Container } from "../../components/container/Container";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export const Home = () => {
         <p className="text-inputs mb-10 text-2xl">
           You can find everything you want in our catalog
         </p>
-        <Button onClick={() => navigate('/catalog')}>View Now</Button>
+        <Button onClick={() => navigate("/catalog")}>View Now</Button>
       </Container>
     </div>
   );

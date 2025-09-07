@@ -1,15 +1,15 @@
 import { TbHeart, TbHeartFilled } from "react-icons/tb";
 import { Link } from "react-router";
 
-import { Button } from "../../components/Button";
-import CamperHeaderDetails from "../../components/camper-header-details/CamperHeaderDetails";
-import { FeatureBadge } from "../../components/feature-badge/FeatureBadge";
-import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { Button } from "../../../components/button/Button";
+import CamperHeaderDetails from "../../../components/camper-header-details/CamperHeaderDetails";
+import { FeatureBadge } from "../../../components/feature-badge/FeatureBadge";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import {
   selectIsFavorite,
   toggleFavorite,
-} from "../../store/slices/favoritesSlice";
-import { Camper, extractFeatures } from "../../types/camper";
+} from "../../../store/slices/favoritesSlice";
+import { Camper, extractFeatures } from "../../../types/camper";
 
 export const CamperItem: React.FC<Camper> = (camper) => {
   const dispatch = useAppDispatch();

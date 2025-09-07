@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import CamperHeaderDetails from "../../components/camper-header-details/CamperHeaderDetails";
-import { Container } from "../../components/Container";
+import { Container } from "../../components/container/Container";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import {
   getCamperById,

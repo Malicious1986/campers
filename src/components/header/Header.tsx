@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-import { Container } from "../Container";
+import { Container } from "../container/Container";
 
 export const Header = () => {
   return (

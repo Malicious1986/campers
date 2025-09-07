@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import { Button } from "../../components/Button";
-import { Container } from "../../components/Container";
+import { Button } from "../../components/button/Button";
+import { Container } from "../../components/container/Container";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import {
   fetchCampers,
@@ -13,7 +13,7 @@ import {
   setCurrentPage,
 } from "../../store/slices/campersSlice";
 import { resetFilters } from "../../store/slices/filterSlice";
-import { CamperItem } from "../../views/camper-item/CamperItem";
+import { CamperItem } from "./templates/CamperItem";
 import Filters from "./templates/Filters";
 
 export const Catalog = () => {

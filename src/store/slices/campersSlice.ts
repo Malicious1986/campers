@@ -87,6 +87,7 @@ const campersSlice = createSlice({
 });
 export const { setCurrentPage, resetCampers } = campersSlice.actions;
 export default campersSlice.reducer;
+
 export const selectCampers = (state: { campers: CampersState }) =>
   state.campers.items;
 export const selectIsLoading = (state: { campers: CampersState }) =>
@@ -105,9 +106,5 @@ export const selectCurrentCamper = (
   state: { campers: CampersState },
   id: string
 ) => {
-  console.log(
-    "Selecting current camper with id:",
-    state.campers.items.find((camper) => camper.id === id)
-  );
   return state.campers.items.find((camper) => camper.id === id);
 };

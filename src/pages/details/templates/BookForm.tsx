@@ -3,7 +3,7 @@ import "izitoast/dist/css/iziToast.min.css";
 import iziToast from "izitoast";
 import { useState } from "react";
 
-import { Button } from "../../../components/Button";
+import { Button } from "../../../components/button/Button";
 import { Input } from "../../../components/input/Input";
 import TextArea from "../../../components/textarea/TextArea";
 

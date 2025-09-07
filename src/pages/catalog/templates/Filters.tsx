@@ -1,7 +1,7 @@
-import { debounce,throttle } from "lodash";
+import { debounce, throttle } from "lodash";
 import { TbMap } from "react-icons/tb";
 
-import { Button } from "../../../components/Button";
+import { Button } from "../../../components/button/Button";
 import FeatureFilterItem from "../../../components/filter/FeatureFilterItem";
 import { Input } from "../../../components/input/Input";
 import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
