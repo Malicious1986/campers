@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Features } from "../../types/camper";
 
 interface FilterState {
-  equipment: Features [];
+  equipment: string[];
   form: string;
   location: string;
 }
 
-const folterSlise = createSlice({
+const filterSlice = createSlice({
   name: "filter",
   initialState: {
     equipment: [],
@@ -19,16 +18,33 @@ const folterSlise = createSlice({
       state.equipment.push(action.payload);
     },
     removeEquipment: (state, action) => {
-      state.equipment = state.equipment.filter((feature) => feature !== action.payload);
+      state.equipment = state.equipment.filter(
+        (equipment) => equipment !== action.payload
+      );
     },
     setForm: (state, action) => {
       state.form = action.payload;
     },
+    removeForm: (state) => {
+      state.form = "";
+    },
     setLocation: (state, action) => {
       state.location = action.payload;
+    },
+    resetFilters: (state) => {
+      state.equipment = [];
+      state.form = "";
+      state.location = "";
     },
   },
 });
 
-export const { setEquipment, setForm, setLocation, removeEquipment  } = folterSlise.actions;
-export default folterSlise.reducer;
+export const {
+  setEquipment,
+  setLocation,
+  removeEquipment,
+  setForm,
+  removeForm,
+  resetFilters,
+} = filterSlice.actions;
+export default filterSlice.reducer;

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+
 import { Container } from "../Container";
 
 export const Header = () => {
@@ -11,8 +12,28 @@ export const Header = () => {
             <span className="text-text">Trucks</span>
           </p>
           <nav className="mx-auto flex gap-8 font-medium">
-            <ul><NavLink to='/' className={({isActive}) => isActive ? 'text-button-hover' : ''}>Home</NavLink></ul>
-            <ul><NavLink to='/catalog' className={({isActive}) => isActive ? 'text-button-hover' : ''}>Catalog</NavLink></ul>
+            <ul>
+              <NavLink
+                end
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "text-button-hover" : ""
+                }
+              >
+                Home
+              </NavLink>
+            </ul>
+            <ul>
+              <NavLink
+                end
+                to="/catalog"
+                className={({ isActive }) =>
+                  isActive ? "text-button-hover" : ""
+                }
+              >
+                Catalog
+              </NavLink>
+            </ul>
           </nav>
         </div>
       </Container>

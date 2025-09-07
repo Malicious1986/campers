@@ -7,23 +7,29 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseClasses = " cursor-pointer rounded-full px-6 h-14";
+const disabledClasses = "opacity-50 cursor-not-allowed";
 const appearanceClasses = {
   primary: "bg-button hover:bg-button-hover min-w-[166px] text-white",
-  secondary: "border border-gray-light text-main min-w-[145px] hover:border-button-hover",
+  secondary:
+    "border border-gray-light text-main min-w-[145px] hover:border-button-hover",
 };
 
 export const Button: React.FC<Props> = ({
   className,
   children,
   appearance = "primary",
+  disabled,
   ...rest
 }) => {
   return (
     <button
       {...rest}
-      className={[baseClasses, appearanceClasses[appearance], className].join(
-        " ",
-      )}
+      className={[
+        baseClasses,
+        appearanceClasses[appearance],
+        className,
+        disabled && disabledClasses,
+      ].join(" ")}
     >
       {children}
     </button>

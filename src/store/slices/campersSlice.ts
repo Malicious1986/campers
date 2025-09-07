@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+import { fetchData } from "../../api";
 import { Camper } from "../../types/camper";
+import { RootState } from "../store";
 
 interface CampersState {
   items: Camper[];
@@ -10,19 +13,38 @@ interface CampersState {
   currentPage: number;
 }
 
-export const fetchCampers = createAsyncThunk(
+type FetchCampersRequest = {
+  limit?: number;
+};
+
+type FetchCampersResponse = {
+  items: Camper[];
+  total: number;
+};
+
+export const fetchCampers = createAsyncThunk<
+  FetchCampersResponse,
+  FetchCampersRequest,
+  { state: RootState }
+>(
   "campers/fetchCampers",
-  async ({ page = 1, limit = 4 }: { page?: number; limit?: number }) => {
-    const response = await fetch(
-      `https://66b1f8e71ca8ad33d4f5f63e.mockapi.io/campers?page=${page}&limit=${limit}`
+  async ({ limit = 4 }: FetchCampersRequest, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const { filter, campers } = state;
+    const filteredEquipment = filter.equipment.filter(
+      (eq) => eq !== "automatic"
     );
-    if (!response.ok) {
-      throw new Error("Failed to fetch campers");
-    }
-    const data = await response.json();
-    return data;
+    const equipmentQuery = filteredEquipment.reduce((acc, eq) => {
+      return `${acc}&${eq}=true`;
+    }, "");
+    const automatic = filter.equipment.find((eq) => eq === "automatic");
+
+    const url = `?page=${campers.currentPage}&limit=${limit}&form=${filter.form}&location=${filter.location}${
+      filteredEquipment.length ? equipmentQuery : ""
+    }${automatic ? `&transmission=${automatic}` : ""}`;
+    return await fetchData<FetchCampersResponse>(url);
   }
-)
+);
 
 const campersSlice = createSlice({
   name: "campers",
@@ -35,9 +57,14 @@ const campersSlice = createSlice({
     currentPage: 1,
   } as CampersState,
   reducers: {
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
-    }
+    setCurrentPage: (state) => {
+      state.currentPage += 1;
+    },
+    resetCampers: (state) => {
+      state.items = [];
+      state.total = 0;
+      state.currentPage = 1;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,14 +83,31 @@ const campersSlice = createSlice({
         state.isError = true;
         state.error = action.error.message || "Failed to fetch campers";
       });
-  }
+  },
 });
-export const { setCurrentPage } = campersSlice.actions;
+export const { setCurrentPage, resetCampers } = campersSlice.actions;
 export default campersSlice.reducer;
-export const selectCampers = (state: { campers: CampersState }) => state.campers.items;
-export const selectIsLoading = (state: { campers: CampersState }) => state.campers.isLoading;
-export const selectIsError = (state: { campers: CampersState }) => state.campers.isError;
-export const selectError = (state: { campers: CampersState }) => state.campers.error;
-export const selectTotal = (state: { campers: CampersState }) => state.campers.total;
-export const selectCurrentPage = (state: { campers: CampersState }) => state.campers.currentPage;
-export const selectIsDone = (state: { campers: CampersState }) => state.campers.items.length === state.campers.total;
+export const selectCampers = (state: { campers: CampersState }) =>
+  state.campers.items;
+export const selectIsLoading = (state: { campers: CampersState }) =>
+  state.campers.isLoading;
+export const selectIsError = (state: { campers: CampersState }) =>
+  state.campers.isError;
+export const selectError = (state: { campers: CampersState }) =>
+  state.campers.error;
+export const selectTotal = (state: { campers: CampersState }) =>
+  state.campers.total;
+export const selectCurrentPage = (state: { campers: CampersState }) =>
+  state.campers.currentPage;
+export const selectIsDone = (state: { campers: CampersState }) =>
+  state.campers.items.length === state.campers.total;
+export const selectCurrentCamper = (
+  state: { campers: CampersState },
+  id: string
+) => {
+  console.log(
+    "Selecting current camper with id:",
+    state.campers.items.find((camper) => camper.id === id)
+  );
+  return state.campers.items.find((camper) => camper.id === id);
+};

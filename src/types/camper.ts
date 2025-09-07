@@ -1,5 +1,3 @@
-
-
 export interface Camper {
   AC: boolean;
   TV: boolean;
@@ -28,7 +26,7 @@ export interface Camper {
   width: string;
 }
 
-export enum Features {
+export enum Equipment {
   AC = "AC",
   automatic = "Automatic",
   TV = "TV",
@@ -41,17 +39,23 @@ export enum Features {
   gas = "Gas",
 }
 
-export const extractFeatures = (camper: Camper): Features[] => {
-  const features: Features[] = [];
-  if (camper.AC) features.push(Features.AC);
-  if (camper.TV) features.push(Features.TV);
-  if (camper.bathroom) features.push(Features.bathroom);
-  if (camper.kitchen) features.push(Features.kitchen);
-  if (camper.microwave) features.push(Features.microwave);
-  if (camper.radio) features.push(Features.radio);
-  if (camper.refrigerator) features.push(Features.refrigerator);
-  if (camper.water) features.push(Features.water);
-  if (camper.gas) features.push(Features.gas);
+export enum Form {
+  van = "Van",
+  alcove = "Alcove",
+  fullyIntegrated = "Fully Integrated",
+}
+
+export const extractFeatures = (camper: Camper): Equipment[] => {
+  const features: Equipment[] = [];
+  if (camper.AC) features.push(Equipment.AC);
+  if (camper.TV) features.push(Equipment.TV);
+  if (camper.bathroom) features.push(Equipment.bathroom);
+  if (camper.kitchen) features.push(Equipment.kitchen);
+  if (camper.microwave) features.push(Equipment.microwave);
+  if (camper.radio) features.push(Equipment.radio);
+  if (camper.refrigerator) features.push(Equipment.refrigerator);
+  if (camper.water) features.push(Equipment.water);
+  if (camper.gas) features.push(Equipment.gas);
   return features;
 };
 
@@ -65,3 +69,5 @@ export interface Review {
   reviewer_name: string;
   reviewer_rating: number;
 }
+
+export type Features = Equipment | Form;

@@ -1,53 +1,62 @@
 import {
-  TbFridge,
   TbAirConditioning,
   TbAutomaticGearbox,
-  TbToolsKitchen,
-  TbDeviceTvOld,
   TbBath,
+  TbChartCohort,
+  TbChartColumn,
+  TbChartGridDots,
+  TbDeviceTvOld,
+  TbDroplet,
+  TbFridge,
+  TbGasStation,
   TbMicrowave,
   TbRadio,
-  TbDroplet,
-  TbGasStation
+  TbToolsKitchen,
 } from "react-icons/tb";
-import { Features } from "../../types/camper";
+
+import { Equipment, Features, Form } from "../../types/camper";
 
 const FeatureIconMap: Record<Features, React.ReactNode> = {
-  [Features.AC]: <TbAirConditioning size={24} />,
-  [Features.automatic]: <TbAutomaticGearbox size={24} />,
-  [Features.TV]: <TbDeviceTvOld size={24} />,
-  [Features.bathroom]: <TbBath size={24} />,
-  [Features.kitchen]: <TbToolsKitchen size={24} />,
-  [Features.microwave]: <TbMicrowave size={24} />,
-  [Features.radio]: <TbRadio size={24} />,
-  [Features.refrigerator]: <TbFridge size={24} />,
-  [Features.water]: <TbDroplet size={24} />,
-  [Features.gas]: <TbGasStation size={24} />,
+  [Equipment.AC]: <TbAirConditioning size={32} />,
+  [Equipment.automatic]: <TbAutomaticGearbox size={32} />,
+  [Equipment.TV]: <TbDeviceTvOld size={32} />,
+  [Equipment.bathroom]: <TbBath size={32} />,
+  [Equipment.kitchen]: <TbToolsKitchen size={32} />,
+  [Equipment.microwave]: <TbMicrowave size={32} />,
+  [Equipment.radio]: <TbRadio size={32} />,
+  [Equipment.refrigerator]: <TbFridge size={32} />,
+  [Equipment.water]: <TbDroplet size={32} />,
+  [Equipment.gas]: <TbGasStation size={32} />,
+  [Form.van]: <TbChartCohort size={32} />,
+  [Form.alcove]: <TbChartColumn size={32} />,
+  [Form.fullyIntegrated]: <TbChartGridDots size={32} />,
 };
 
 export default function FeatureFilterItem({
+  entityKey,
   feature,
   isSelected,
   onSelect,
   onRemove,
 }: {
+  entityKey: string;
   feature: Features;
   isSelected: boolean;
-  onSelect: (feature: Features) => void;
-  onRemove: (feature: Features) => void;
+  onSelect: (key: string) => void;
+  onRemove?: (key: string) => void;
 }) {
   const onClickHandler = () => {
     if (isSelected) {
-      onRemove(feature);
+      onRemove?.(entityKey);
     } else {
-      onSelect(feature);
+      onSelect(entityKey);
     }
   };
   return (
     <li>
       <button
         onClick={onClickHandler}
-        className={`h-[73px] w-[86px] text-sm rounded-xl cursor-pointer border border-gray-200 flex flex-col items-center justify-center ${isSelected ? "bg-badges" : "bg-white border-gray-200"}`}
+        className={`h-[96px] w-[112px] text-sm rounded-xl cursor-pointer border border-gray-200 flex flex-col items-center justify-center ${isSelected ? "bg-badges" : "bg-white border-gray-200"}`}
       >
         {FeatureIconMap[feature]}
         {feature}
