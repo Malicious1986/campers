@@ -1,7 +1,7 @@
 import svgSpritePlugin from "@pivanov/vite-plugin-svg-sprite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import path from 'path';
+import path from "path";
 import { defineConfig } from "vite";
 
 // https://vite.dev/config/
@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     svgSpritePlugin({
-      iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
+      iconDirs: [path.resolve(process.cwd())],
       symbolId: "[dir]-[name]",
       svgDomId: "svg-sprite",
       inject: "body-last",
